@@ -2,6 +2,7 @@ const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
 const cors = require('cors');
+const path = require('path');
 
 const app = express();
 app.use(cors({ origin: '*' }));
@@ -9,6 +10,9 @@ app.use(express.json());
 
 const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: '*', methods: ['GET', 'POST'] } });
+
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
 // ─── Match Phase Definitions ──────────────────────────────────────────────────
 const PHASES = {
@@ -230,8 +234,14 @@ app.post('/api/order', (req, res) => {
   res.json({ success: true, orderId, eta, standId, items });
 });
 
+// The "catchall" handler: for any request that doesn't
+// match one above, send back React's index.html file.
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+});
+
 // ─── Start ────────────────────────────────────────────────────────────────────
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 server.listen(PORT, () => {
   console.log(`🏟  VenueIQ Server running → http://localhost:${PORT}`);
   console.log(`   Phase: ${venueState.matchPhase} | Zones: ${venueState.zones.length} | Queues: ${venueState.queues.length}`);

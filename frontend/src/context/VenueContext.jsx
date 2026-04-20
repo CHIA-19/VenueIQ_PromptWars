@@ -1,8 +1,8 @@
 import { createContext, useContext, useEffect, useState, useCallback, useRef } from 'react';
 import { io } from 'socket.io-client';
 
-const SOCKET_URL = 'http://localhost:3001';
-const API = 'http://localhost:3001/api';
+const SOCKET_URL = window.location.hostname === 'localhost' ? 'http://localhost:3001' : window.location.origin;
+const API = `${SOCKET_URL}/api`;
 
 const VenueContext = createContext(null);
 
