@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+/* ── Design Tokens ────────────────────────────────────────────────── */
+:root {
+  --font-display: 'Outfit', 'Inter', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+
+  /* Brand */
+  --brand-primary: 220 90% 56%;      /* hsl(220,90%,56%) — vivid blue */
+  --brand-accent:  258 85% 65%;      /* indigo-violet */
+  --brand-emerald: 158 64% 52%;
+  --brand-amber:   38 92% 50%;
+  --brand-red:     0 85% 60%;
+
+  /* Dashboard (dark) */
+  --dash-bg:       220 27% 6%;
+  --dash-surface:  222 24% 10%;
+  --dash-border:   222 22% 18%;
+  --dash-text:     215 20% 85%;
+  --dash-muted:    215 14% 45%;
+
+  /* Attendee (light) */
+  --app-bg:        210 25% 97%;
+  --app-surface:   0 0% 100%;
+  --app-border:    210 16% 88%;
+  --app-text:      215 28% 15%;
+  --app-muted:     215 14% 55%;
+}
+
+/* ── Base Reset ───────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-display);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #080d18;
+  color: #e2e8f0;
+  overflow: hidden;
+}
+
+::selection {
+  background: rgba(99, 102, 241, 0.35);
+  color: #fff;
+}
+
+/* ── Scrollbar Hide ───────────────────────────────────────────────── */
+@utility scrollbar-hide {
+  &::-webkit-scrollbar { display: none; }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ── Keyframe Animations ─────────────────────────────────────────── */
+@keyframes pulse-glow {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.4; }
+}
+
+@keyframes ping-slow {
+  0%   { transform: scale(1);   opacity: 0.8; }
+  75%, 100% { transform: scale(2.2); opacity: 0; }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes alert-enter {
+  from { opacity: 0; transform: translateX(-16px) scaleY(0.8); }
+  to   { opacity: 1; transform: translateX(0)     scaleY(1);   }
+}
+
+@keyframes heatmap-pulse {
+  0%, 100% { opacity: 0.85; }
+  50%       { opacity: 1.0; }
+}
+
+@keyframes tab-switch {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Utility Animations ──────────────────────────────────────────── */
+.animate-pulse-glow    { animation: pulse-glow 2s ease-in-out infinite; }
+.animate-ping-slow     { animation: ping-slow  1.8s cubic-bezier(0,0,0.2,1) infinite; }
+.animate-slide-up      { animation: slide-up   0.45s ease-out both; }
+.animate-slide-in-right{ animation: slide-in-right 0.4s ease-out both; }
+.animate-fade-in       { animation: fade-in    0.5s ease-out both; }
+.animate-alert-enter   { animation: alert-enter 0.35s ease-out both; }
+.animate-heatmap-pulse { animation: heatmap-pulse 2.5s ease-in-out infinite; }
+.animate-tab-switch    { animation: tab-switch 0.3s ease-out both; }
+
+/* ── Zone color transitions ──────────────────────────────────────── */
+.zone-fill {
+  transition: fill 1.2s ease, opacity 0.6s ease;
+}
+
+/* ── Number counter transition ───────────────────────────────────── */
+.counter-value {
+  transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: inline-block;
+}
+
+/* ── Glass card ──────────────────────────────────────────────────── */
+.glass-dark {
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(148, 163, 184, 0.08);
+}
+
+.glass-light {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(203, 213, 225, 0.6);
+}
